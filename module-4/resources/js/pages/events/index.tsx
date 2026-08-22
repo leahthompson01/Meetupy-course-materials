@@ -1,33 +1,24 @@
-import { Form, Head } from '@inertiajs/react';
-import EventController from '@/actions/App/Http/Controllers/EventController';
-import { Button } from '@/components/ui/button';
-import { create, index } from '@/routes/events';
-import type { MeetupGroup } from '@/types';
-import EventForm from './eventForm';
+import { Head, Link } from '@inertiajs/react';
+import EventCard from '@/components/event-card';
+import { show } from '@/routes/events';
+import type { Event } from '@/types';
 
-export default function EventCreate({ meetupGroups }: { meetupGroups: MeetupGroup[] }) {
+interface Props {
+    events: Event[];
+}
+
+export default function EventsIndex({ events }: Props) {
     return (
         <>
-            <Head title="Create Event" />
+            <Head title="Upcoming Events" />
 
-            <Form {...EventController.store.form()} className="max-w-xl space-y-6">
-                {({ processing, errors }) => (
-                    <>
-                        <EventForm errors={errors} meetupGroups={meetupGroups} />
+            <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-semibold">Upcoming Events</h1>
+            </div>
 
-                        <Button type="submit" disabled={processing}>
-                            {processing ? 'Creating...' : 'Create Event'}
-                        </Button>
-                    </>
-                )}
-            </Form>
+            <div className="space-y-4">
+                {/* We'll render our Events here */}
+            </div>
         </>
     );
 }
-
-EventCreate.layout = {
-    breadcrumbs: [
-        { title: 'Upcoming Events', href: index.url() },
-        { title: 'Create Event', href: create.url() },
-    ],
-};

@@ -5,7 +5,7 @@ import type { Event, MeetupGroup } from '@/types';
 
 type Props = {
     errors: Partial<Record<string, string>>;
-    meetupGroups: MeetupGroup[];
+    meetupGroups?: MeetupGroup[];
     event?: Event;
 };
 
@@ -48,24 +48,26 @@ export default function EventForm({ errors, meetupGroups, event }: Props) {
                 <InputError message={errors.starts_at} />
             </div>
 
-            <div className="grid gap-2">
-                <Label htmlFor="meetup_group_id">Meetup Group</Label>
-                <select
-                    id="meetup_group_id"
-                    name="meetup_group_id"
-                    required
-                    defaultValue={event?.meetup_group_id}
-                    className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                >
-                    <option value="">Select a group</option>
-                    {meetupGroups.map((group) => (
-                        <option key={group.id} value={group.id}>
-                            {group.name}
-                        </option>
-                    ))}
-                </select>
-                <InputError message={errors.meetup_group_id} />
-            </div>
+            {meetupGroups && (
+                <div className="grid gap-2">
+                    <Label htmlFor="meetup_group_id">Meetup Group</Label>
+                    <select
+                        id="meetup_group_id"
+                        name="meetup_group_id"
+                        required
+                        defaultValue={event?.meetup_group_id}
+                        className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                    >
+                        <option value="">Select a group</option>
+                        {meetupGroups.map((group) => (
+                            <option key={group.id} value={group.id}>
+                                {group.name}
+                            </option>
+                        ))}
+                    </select>
+                    <InputError message={errors.meetup_group_id} />
+                </div>
+            )}
         </>
     );
 }
