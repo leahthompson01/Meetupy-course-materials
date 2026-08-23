@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { index, show } from '@/routes/events';
+// import { index, show } from '@/routes/events';
 import type { Event } from '@/types';
 
 interface Props {
